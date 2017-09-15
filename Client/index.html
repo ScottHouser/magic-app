@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Magic App</title>
+
+        <link href="/Client/css/bootstrap.min.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Oswald');
+            body{
+
+                font-family:Oswald; 
+                background: url('../Client/img2/Izzet_Wallpaper_1920x1080.jpg');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-attachment: fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+
+            }
+            #header{
+                padding:0px;
+                margin-left:0px;
+                margin-right:0px;
+                background: rgba(255, 255, 255, 0.8);
+
+
+
+            }
+            #title{
+                font-size: 600%;
+                margin-top:0px;
+            }
+            @media screen and (max-width: 767px) {
+                #title {
+                    font-size: 400%;
+                }
+            }
+            #nav_bar{
+                padding-top:0px;
+                background: rgba(255, 255, 255, 0.8);
+
+            }
+            #main_pic, #main_pic2{
+                border-radius: 25px;
+                border: 2px solid #637593;
+
+                background: rgba(255, 255, 255, 0.8);
+                margin-top:0px;
+                margin-left:0px;
+                margin-right:0px;
+                height:430px;
+
+            }
+            #main_pic{
+                height:430px;
+            }
+            #search_table_div{
+                border-radius: 25px;
+                border: 2px solid #637593;
+                padding: 20px; 
+                background: rgba(255, 255, 255, 0.8);
+
+                margin-left:0px;
+                margin-right:0px;
+                height:430px;
+
+            }
+
+            #cap_top, #cap_top2{
+                background: rgba(255, 255, 255, 0.3);
+                margin:20px;
+                border-radius: 25px;
+            }
+            #footer{
+                margin-top:60px;
+                background-color:white;
+                border: 2px solid #637593;
+            }
+            #right{
+                border-radius: 25px;
+                border: 2px solid #637593;
+                padding: 20px; 
+                background-color:white;
+                margin-top:20px;
+
+            }
+
+
+            #slide{
+                border-radius: 25px;
+
+            }
+            #car_buttons{
+                border-radius: 25px;
+                border: 1px solid white;
+            }
+            #card_search{
+                margin-top:28px;
+                width: 300px;
+            }
+
+            .blog{
+                margin-top: 15px;  
+            }
+            .indiv_card{
+                border-radius: 25px;
+                border: 2px solid #637593;
+            }
+            .ci{
+                width:200px;
+            }
+            .modal-backdrop {
+                z-index: 1020;
+            }
+
+        </style>
+    </head>
+    <body ng-app="myApp">
+
+
+
+        <div ng-controller="MainController">
+            <div id="header" class="container-fluid">
+                <div class="page-header">
+
+                    <center><h2 style="color:#bc071c">SUPER COOL MAGIC APP</h2>  </center>  
+
+                </div>
+
+            </div>
+            <div id='nav_bar' class="col-md-12">
+                <ul  class="nav nav-pills nav-fill">
+
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="test()" href="#"><h3>populate table</h3></a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" ><h3>Search:</h3></a>
+                    </li>
+                    <li class="nav-item">
+                        <input type="text" class="form-control" id="card_search">
+                    </li>
+
+                    <!--                    <li class="nav-item" style="width:400px">
+                    
+                                            <form class="form-inline">
+                                                <input id="api_search" class="form-control mr-sm-2" type="text" placeholder="Search" style="margin-top:28px;width:200px">
+                                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-top:28px" onclick="a($('#api_search').val())">Search</button>
+                                            </form>
+                                        </li>-->
+                </ul>
+            </div>
+            <div id='search_table_div' class="col-md-2">
+                <div style="background: rgba(255, 255, 255, 0.3);border-radius: 25px;">
+                    <center><h4 style="color:#bc071c;" style ='margin-top:0px;'>Search Results</h4></center>    
+                    <table id="search_display">
+                        <tr></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div id="main_pic" class="col-md-5">
+                    <div id="cap_top">
+                        <center><h2 style="color:#bc071c;" style ='margin-top:0px;'>Card Table</h2></center>
+                        <table id="card_list">
+                            <tr></tr>
+                        </table>
+
+
+                    </div>
+
+                </div>
+                <div id="main_pic2" class="col-md-4">
+                    <div id="cap_top2">
+                        <center><h2 style="color:#bc071c;" style ='margin-top:0px;'>Log Cards</h2></center>
+                        <center><h4 style="color:#bc071c;margin-top:0px;" id="log_message"></h4></center>
+                        <input type="text" placeholder="Name" class="form-control ci" id="card_input1">
+                        <input type="text" placeholder="Quantity" class="form-control ci" id="card_input2">
+                        <input type="text" placeholder="Set" class="form-control ci" id="card_input3">
+                        <input type="text" placeholder="Purchace" class="form-control ci" id="card_input4">
+                        <input type="text" placeholder="Current" class="form-control ci" id="card_input5">
+
+                        <center><button type="button" class="btn btn-primary" onclick="submitToDB()">Log To Database</button></center>
+                        <center><button type="button" class="btn btn-primary" onclick="allCards()">!!!</button></center>
+
+                    </div>
+
+                </div>
+                <div style='height:100px;width:100px;' id='test_div'>
+
+                </div>
+            </div>
+
+        </div> 
+
+       
+
+        <!-- Modal -->
+
+
+
+
+
+
+
+
+
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Sale Form</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" placeholder="Name" class="form-control ">
+                        <input type="text" placeholder="Quantity" class="form-control " >
+                        <input type="text" placeholder="price" class="form-control " >
+                        <input type="text" placeholder="x" class="form-control " >
+                        <input type="text" placeholder="x" class="form-control " >
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="/Client/js/jquery-2.2.4.min.js"></script>
+        <script src="/Client/js/bootstrap.min.js"></script>
+
+        <script src="/Client/js/angular.min.js"></script>
+        <script src="/Client/js/angularApp.js"></script>
+
+        <!-- Modules -->
+        <script src="/Client/js/controller.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script>
+                                //uses 3rd party api
+                                var a = function (input) {
+                                    //var input = $('#api_search').val();
+                                    var formatedInput = '';
+                                    for (var i = 0; i < input.length + 1; i++) {
+
+                                        if (input.substring(i, i + 1) !== ' ') {
+                                            formatedInput = formatedInput + input.substring(i, i + 1);
+
+                                        } else {
+                                            formatedInput = formatedInput + '-';
+
+                                        }
+
+                                    }
+
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: 'https://api.deckbrew.com/mtg/cards/' + formatedInput
+
+                                    }).success(function (data) {
+
+                                        var g = "url(" + data.editions[0].image_url + ")";
+                                        var searchTable = $('#card_list');
+                                        var searchTable2 = $('#main_pic');
+
+                                        searchTable2.css({"background-image": g, "background-position": 'right', 'background-repeat': 'no-repeat'});
+
+                                    });
+
+                                };
+                                //END
+
+
+                                var socket = io();
+
+                                //RETURN ALL FROM DB
+                                var test = function () {
+
+                                    socket.emit('hitDB', {id: "afd"});
+
+                                };
+
+                                socket.on('dbReturn', function (data) {
+
+
+                                    var cardlist = $('#card_list');
+                                    cardlist.empty();
+
+                                    $.each(data.cards, function (index, value) {
+                                        cardlist.append('<tr><td class ="indiv_card"><h4>' + value.name_card + " x" + value.quantity + " " + '<a data-toggle="modal" data-target="#myModal" href="url">Create Listing</a>  <button type="button" class="btn btn-danger">-1</button></h4></td></tr>');
+                                    });
+                                });
+                                //END
+
+                                //SEARCH BAR DISPLAY
+                                var inputBox1 = document.getElementById('card_search');
+
+                                inputBox1.onkeyup = function () {
+
+                                    var searchTable = $('#search_display');
+                                    searchTable.empty();
+                                    var inputBox2 = document.getElementById('card_search').value;
+
+                                    if (inputBox2 !== '') {
+                                        socket.emit('searchBar', {searchTerm: inputBox2});
+                                    }
+                                    ;
+
+                                };
+
+                                socket.on('searchBarReturn', function (data) {
+
+                                    var searchTable = $('#search_display');
+
+                                    $.each(data.cards, function (index, value) {
+                                        var tableRow2=$('<tr>');
+                                        var tableD2=$('<td>').attr({class:'indiv_card'});
+                                        var h6text=$('<h6>');
+                                        var linkToDisplay=$('<a>').click(function(){displayFunctions(value.name.toLowerCase());});
+                                        linkToDisplay.append(value.name.toLowerCase());
+                                        searchTable.append(tableRow2.append(tableD2.append(h6text.append(linkToDisplay))));
+                                        //var linkToDisplay=$('<a>').attr({onClick:displayFunctions(value.name.toLowerCase())});
+                                        //var linkToDisplay=$('<a>').attr({onclick:displayFunctions(value.name.toLowerCase())});
+
+                                       // searchTable.append($('<tr>').append($('<td class ="indiv_card">').append($('<h6>').append($('<a>').text(value.name).click(function () {
+                                       //     a(value.name.toLowerCase());
+                                        //    $('#card_input1').val(value.name.toLowerCase());
+                                       //     socket.emit('searchBarSelected', {searchTerm: value.name});
+                                      //  })))));
+                                      //  
+                                      //var displayFunctions=function(linkValue){
+                                          //a(linkValue);
+                                         // $('#card_input1').val(linkValue);
+                                         // socket.emit('searchBarSelected', {searchTerm: linkValue});
+                                     // };
+                                    });
+
+
+                                });
+                                //END
+
+                                //Retrieve card by search click
+                                var sendSearchLink = function (searchTermLink) {
+                                    socket.emit('searchBarSelected', {searchTerm: searchTermLink});
+                                };
+
+                                socket.on('searchBarReturnClick', function (data) {
+
+
+
+                                    var cardlist = $('#card_list');
+                                    cardlist.empty();
+
+                                    $.each(data.cards, function (index, value) {
+                                        //cardlist.append('<tr><td class ="indiv_card"><h4>' + value.name_card + " x" + value.quantity + " " + '<a data-toggle="modal" data-target="#myModal" href="url">Create Listing</a><button type="button" class="minusOne btn btn-danger"> -1</button></h4></td></tr>');
+                                        var tableRow=$('<tr>');
+                                        var tableD=$('<td>').attr({class:'indiv_card'});
+                                        var textH4=$('<h4>').attr({HTML:value.name_card+" x"+value.quantity});
+                                        textH4.append(value.name_card+" x"+value.quantity+" ");
+                                        var createListingLink=$('<a>').attr({"data-toggle":'modal', "data-target":'#myModal',href:'url'});
+                                        createListingLink.append(' Create Listing ');
+                                        var deleteOneButton=$('<button>').attr({class:'btn btn-danger',text:'-1'});
+                                        deleteOneButton.append(' -1');
+                                        deleteOneButton.click(function(){
+                                            deleteOne(value.name_card,value.quantity);
+                                        });
+                                        //cardlist.append(tableRow.append(tableD.append(textH4.append(createListingLink.append(deleteOneButton)))));
+                                        cardlist.append(tableRow.append(tableD.append(textH4.append(createListingLink,deleteOneButton))));
+                                        //deleteOneButton.append(onclick,deleteOne(value.name_card));
+                                        //onclick:deleteOne(value.name_card)
+                                        
+                                        
+                                         
+                                    });
+
+                                });
+                                //END
+
+                                //submit card to database
+                                var submitToDB = function () {
+                                    var cardName = $('#card_input1').val();
+                                    var cardQuantity = $('#card_input2').val();
+                                    var setname = $('#card_input3').val();
+                                    var purchacePrice = $('#card_input4').val();
+                                    var currentPrice = $('#card_input5').val();
+
+
+                                    socket.emit('submitDB', {name: cardName, set_name: setname, quantity: cardQuantity, purchace_price: purchacePrice, current_price: currentPrice});
+
+                                };
+
+                                socket.on('entryReturnClick', function (data) {
+
+                                    if (data.message === 'Success!') {
+                                        $('#card_input1').val('');
+                                        $('#card_input2').val('');
+                                        $('#card_input3').val('');
+                                        $('#card_input4').val('');
+                                        $('#card_input5').val('');
+                                        var cardlist = $('#card_list');
+                                        cardlist.empty();
+                                        sendSearchLink(data.card);
+
+
+                                    }
+                                    $('#log_message').html(data.message);
+
+                                });
+                                //END
+
+                                //FILLS All cards in db
+                                var allCards = function () {
+                                    $.getJSON('/Client/js/AllCards.json', function (data) {
+
+                                        for (var card in data) {
+                                            socket.emit('submitDB2', {name: card});
+                                        }
+
+                                    });
+                                };
+                                
+                                 var deleteOne = function (card,quant) {
+                        
+                                        
+                                        
+                                    socket.emit('deleteOne', {name: card,quantity:quant});
+                                        
+
+                                    
+                                };
+                                
+                              //  socket.on('minus1ReturnClick', function (data) {
+                                    
+                                //    data.card()
+                                  
+                               // });
+                                
+                                
+                                var displayFunctions=function(linkValue){
+                                          a(linkValue);
+                                          $('#card_input1').val(linkValue);
+                                          socket.emit('searchBarSelected', {searchTerm: linkValue});
+                                      };
+                                
+                                
+
+
+
+        </script>
+    </body>
+</html>
