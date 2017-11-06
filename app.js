@@ -7,6 +7,9 @@ var express = require('express');
 var app = express();
 var serv = require('http').Server(app);
 var mysql = require('mysql');
+var parseString = require('xml2js').parseString;
+var fs = require('fs');
+var json2xml = require('json2xml');
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/Client/index.html');
@@ -26,6 +29,10 @@ app.get('/', function (req, res) {
         if (err)
             throw err;
         console.log("Connected!");
+        var xml = "<root>Hello xml2js!</root>";
+        parseString(xml, function (err, result) {
+            console.log(result);
+        });
 
         con.query("SELECT * FROM `Website_Content_mesa`", function (err, result, fields) {
             if (err)
@@ -69,7 +76,7 @@ app.get('/', function (req, res) {
                 socket.emit('searchBarReturnClick', {cards: result});
             });
         });
-        
+
         //SUBMITaCARDSTODB
         socket.on('submitDB', function (data) {
             console.log(data);
@@ -79,7 +86,7 @@ app.get('/', function (req, res) {
             ];
 
             if (!isNaN(parseInt(data.quantity))) {
-                console.log(data.name.toString());
+
 
                 con.query("SELECT * FROM `card_DB` WHERE name_card LIKE" + "'" + data.name + "'", function (err, result, fields) {
 
@@ -130,43 +137,39 @@ app.get('/', function (req, res) {
             });
 
         });
-        
-         socket.on('deleteOne', function (data) {
-             console.log(data);
-            //var newQuantity=7; 
-            
-            var cardName=data.name;
-             
-           // con.query("SELECT * FROM `card_DB` WHERE name_card LIKE" + "'" + data.name + "'", function (err, result, fields) {
-                
-            //    console.log(result);
-               // newNewQuantity=parseInt(result.quantity)-1;
-                //=result.quantity-1;
-                
-                
-                
-           // }); 
-            
-            con.query("UPDATE card_DB SET quantity = " + parseInt(data.quantity-1) + " WHERE name_card =" + "'" + cardName + "'", function (err, result, fields) {
-               
-                            if (err)
-                                throw err;
-                            socket.emit('minus1ReturnClick', {message: 'Success!', card: data.name});
-                        });
 
-            //var sql = "INSERT INTO `card_name_db`(name) VALUES ?";
-           // var values = [
-           //     [data.name]
-           // ];
-
-           // con.query(sql, [values], function (err, result, fields) {
-            //    if (err)
-            //        throw err;
+        socket.on('deleteOne', function (data) {
+            console.log(data);
 
 
-           // });
+            var cardName = data.name;
+
+
+
+            con.query("UPDATE card_DB SET quantity = " + parseInt(data.quantity - 1) + " WHERE name_card =" + "'" + cardName + "'", function (err, result, fields) {
+
+                if (err)
+                    throw err;
+                socket.emit('minus1ReturnClick', {message: 'Success!', card: data.name});
+            });
+
+
 
         });
+
+        socket.on('ebayPostListing', function (data) {
+            
+            console.log(data);
+            //parseString(data, function (err, result) {
+                //console.log(result);
+            //});
+            var x =json2xml(data);
+            console.log(x);
+
+
+        });
+
+
 
 
 

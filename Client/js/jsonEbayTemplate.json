@@ -1,0 +1,436 @@
+{
+  "AddItemRequest": {
+    "-xmlns": "urn:ebay:apis:eBLBaseComponents",
+    "Item": {
+      "#text": " ItemType",
+      "ApplicationData": "",
+      "AutoPay": "",
+      "BestOfferDetails": {
+        "#text": " BestOfferDetailsType",
+        "BestOfferEnabled": false
+      },
+      "BuyerRequirementDetails": {
+        "#text": " BuyerRequirementDetailsType",
+        "LinkedPayPalAccount": " boolean ",
+        "MaximumBuyerPolicyViolations": {
+          "#text": " MaximumBuyerPolicyViolationsType",
+          "Count": " int ",
+          "Period": " PeriodCodeType "
+        },
+        "MaximumItemRequirements": {
+          "#text": " MaximumItemRequirementsType",
+          "MaximumItemCount": " int ",
+          "MinimumFeedbackScore": " int "
+        },
+        "MaximumUnpaidItemStrikesInfo": {
+          "#text": " MaximumUnpaidItemStrikesInfoType",
+          "Count": " int ",
+          "Period": " PeriodCodeType "
+        },
+        "MinimumFeedbackScore": " int ",
+        "ShipToRegistrationCountry": " boolean ",
+        "VerifiedUserRequirements": {
+          "#text": " VerifiedUserRequirementsType",
+          "MinimumFeedbackScore": " int ",
+          "VerifiedUser": " boolean "
+        },
+        "ZeroFeedbackScore": " boolean "
+      },
+      "BuyerResponsibleForShipping": " boolean ",
+      "BuyItNowPrice": {
+        "-currencyID": "CurrencyCodeType",
+        "#text": " AmountType (double) "
+      },
+      "CategoryBasedAttributesPrefill": " boolean ",
+      "CategoryMappingAllowed": " boolean ",
+      "Charity": {
+        "#text": " CharityType",
+        "CharityID": " string ",
+        "CharityNumber": " int ",
+        "DonationPercent": " float "
+      },
+      "ConditionDescription": " string ",
+      "ConditionID": " int ",
+      "Country": " CountryCodeType ",
+      "CrossBorderTrade": " string ",
+      "Currency": " CurrencyCodeType ",
+      "Description": " string ",
+      "DigitalGoodInfo": {
+        "#text": " DigitalGoodInfoType",
+        "DigitalDelivery": " boolean "
+      },
+      "DisableBuyerRequirements": " boolean ",
+      "DiscountPriceInfo": {
+        "#text": " DiscountPriceInfoType",
+        "MadeForOutletComparisonPrice": {
+          "-currencyID": "CurrencyCodeType",
+          "#text": " AmountType (double) "
+        },
+        "MinimumAdvertisedPrice": {
+          "-currencyID": "CurrencyCodeType",
+          "#text": " AmountType (double) "
+        },
+        "MinimumAdvertisedPriceExposure": " MinimumAdvertisedPriceExposureCodeType ",
+        "OriginalRetailPrice": {
+          "-currencyID": "CurrencyCodeType",
+          "#text": " AmountType (double) "
+        },
+        "SoldOffeBay": " boolean ",
+        "SoldOneBay": " boolean "
+      },
+      "DispatchTimeMax": " int ",
+      "eBayNowEligible": " boolean ",
+      "eBayPlus": " boolean ",
+      "ExtendedSellerContactDetails": {
+        "#text": " ExtendedContactDetailsType",
+        "ClassifiedAdContactByEmailEnabled": " boolean ",
+        "ContactHoursDetails": {
+          "#text": " ContactHoursDetailsType",
+          "Hours1AnyTime": " boolean ",
+          "Hours1Days": " DaysCodeType ",
+          "Hours1From": " time ",
+          "Hours1To": " time ",
+          "Hours2AnyTime": " boolean ",
+          "Hours2Days": " DaysCodeType ",
+          "Hours2From": " time ",
+          "Hours2To": " time ",
+          "TimeZoneID": " string "
+        }
+      },
+      "HitCounter": " HitCounterCodeType ",
+      "IncludeRecommendations": " boolean ",
+      "ItemCompatibilityList": {
+        "#text": " ItemCompatibilityListType",
+        "Compatibility": {
+          "#text": " ItemCompatibilityType",
+          "CompatibilityNotes": " string ",
+          "NameValueList": {
+            "#text": " NameValueListType",
+            "Name": " string ",
+            "Value": " string "
+          }
+        }
+      },
+      "ItemSpecifics": {
+        "#text": " NameValueListArrayType",
+        "NameValueList": {
+          "#text": " NameValueListType",
+          "Name": " string ",
+          "Value": " string "
+        }
+      },
+      "ListingDesigner": {
+        "#text": " ListingDesignerType",
+        "LayoutID": " int ",
+        "OptimalPictureSize": " boolean ",
+        "ThemeID": " int "
+      },
+      "ListingDetails": {
+        "#text": " ListingDetailsType",
+        "BestOfferAutoAcceptPrice": {
+          "-currencyID": "CurrencyCodeType",
+          "#text": " AmountType (double) "
+        },
+        "LocalListingDistance": " string ",
+        "MinimumBestOfferPrice": {
+          "-currencyID": "CurrencyCodeType",
+          "#text": " AmountType (double) "
+        }
+      },
+      "ListingDuration": " token ",
+      "ListingEnhancement": " ListingEnhancementsCodeType ",
+      "ListingSubtype2": " ListingSubtypeCodeType ",
+      "ListingType": " ListingTypeCodeType ",
+      "LiveAuction": " boolean ",
+      "Location": " string ",
+      "LotSize": " int ",
+      "MotorsGermanySearchable": " boolean ",
+      "PaymentDetails": {
+        "#text": " PaymentDetailsType",
+        "DaysToFullPayment": " int ",
+        "DepositAmount": {
+          "-currencyID": "CurrencyCodeType",
+          "#text": " AmountType (double) "
+        },
+        "DepositType": " DepositTypeCodeType ",
+        "HoursToDeposit": " int "
+      },
+      "PaymentMethods": " BuyerPaymentMethodCodeType ",
+      "PayPalEmailAddress": " string ",
+      "PickupInStoreDetails": {
+        "#text": " PickupInStoreDetailsType",
+        "EligibleForPickupDropOff": " boolean ",
+        "EligibleForPickupInStore": " boolean "
+      },
+      "PictureDetails": {
+        "#text": " PictureDetailsType",
+        "GalleryDuration": " token ",
+        "GalleryType": " GalleryTypeCodeType ",
+        "PhotoDisplay": " PhotoDisplayCodeType ",
+        "PictureURL": " anyURI "
+      },
+      "PostalCode": " string ",
+      "PrimaryCategory": {
+        "#text": " CategoryType",
+        "CategoryID": " string "
+      },
+      "PrivateListing": " boolean ",
+      "ProductListingDetails": {
+        "#text": " ProductListingDetailsType",
+        "BrandMPN": {
+          "#text": " BrandMPNType",
+          "Brand": " string ",
+          "MPN": " string "
+        },
+        "EAN": " string ",
+        "IncludeeBayProductDetails": " boolean ",
+        "IncludeStockPhotoURL": " boolean ",
+        "ISBN": " string ",
+        "NameValueList": {
+          "#text": " NameValueListType",
+          "Name": " string ",
+          "Value": " string "
+        },
+        "ProductReferenceID": " string ",
+        "ReturnSearchResultOnDuplicates": " boolean ",
+        "TicketListingDetails": {
+          "#text": " TicketListingDetailsType",
+          "EventTitle": " string ",
+          "PrintedDate": " string ",
+          "PrintedTime": " string ",
+          "Venue": " string "
+        },
+        "UPC": " string ",
+        "UseFirstProduct": " boolean ",
+        "UseStockPhotoURLAsGallery": " boolean "
+      },
+      "Quantity": " int ",
+      "QuantityInfo": {
+        "#text": " QuantityInfoType",
+        "MinimumRemnantSet": " int "
+      },
+      "QuantityRestrictionPerBuyer": {
+        "#text": " QuantityRestrictionPerBuyerInfoType",
+        "MaximumQuantity": " int "
+      },
+      "ReservePrice": {
+        "-currencyID": "CurrencyCodeType",
+        "#text": " AmountType (double) "
+      },
+      "ReturnPolicy": {
+        "#text": " ReturnPolicyType",
+        "Description": " string ",
+        "ExtendedHolidayReturns": " boolean ",
+        "RefundOption": " token ",
+        "RestockingFeeValueOption": " token ",
+        "ReturnsAcceptedOption": " token ",
+        "ReturnsWithinOption": " token ",
+        "ShippingCostPaidByOption": " token ",
+        "WarrantyDurationOption": " token ",
+        "WarrantyOfferedOption": " token ",
+        "WarrantyTypeOption": " token "
+      },
+      "ScheduleTime": " dateTime ",
+      "SecondaryCategory": {
+        "#text": " CategoryType",
+        "CategoryID": " string "
+      },
+      "Seller": {
+        "#text": " UserType",
+        "MotorsDealer": " boolean "
+      },
+      "SellerContactDetails": {
+        "#text": " AddressType",
+        "CompanyName": " string ",
+        "County": " string ",
+        "Phone2AreaOrCityCode": " string ",
+        "Phone2CountryCode": " CountryCodeType ",
+        "Phone2LocalNumber": " string ",
+        "PhoneAreaOrCityCode": " string ",
+        "PhoneCountryCode": " CountryCodeType ",
+        "PhoneLocalNumber": " string ",
+        "Street": " string ",
+        "Street2": " string "
+      },
+      "SellerProfiles": {
+        "#text": " SellerProfilesType",
+        "SellerPaymentProfile": {
+          "#text": " SellerPaymentProfileType",
+          "PaymentProfileID": " long ",
+          "PaymentProfileName": " string "
+        },
+        "SellerReturnProfile": {
+          "#text": " SellerReturnProfileType",
+          "ReturnProfileID": " long ",
+          "ReturnProfileName": " string "
+        },
+        "SellerShippingProfile": {
+          "#text": " SellerShippingProfileType",
+          "ShippingProfileID": " long ",
+          "ShippingProfileName": " string "
+        }
+      },
+      "SellerProvidedTitle": " string ",
+      "ShippingDetails": {
+        "#text": " ShippingDetailsType",
+        "CalculatedShippingRate": {
+          "#text": " CalculatedShippingRateType",
+          "InternationalPackagingHandlingCosts": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "MeasurementUnit": " MeasurementSystemCodeType ",
+          "OriginatingPostalCode": " string ",
+          "PackagingHandlingCosts": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "ShippingIrregular": " boolean "
+        },
+        "CODCost": {
+          "-currencyID": "CurrencyCodeType",
+          "#text": " AmountType (double) "
+        },
+        "ExcludeShipToLocation": " string ",
+        "GlobalShipping": " boolean ",
+        "InternationalPromotionalShippingDiscount": " boolean ",
+        "InternationalShippingDiscountProfileID": " string ",
+        "InternationalShippingServiceOption": {
+          "#text": " InternationalShippingServiceOptionsType",
+          "ShippingService": " token ",
+          "ShippingServiceAdditionalCost": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "ShippingServiceCost": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "ShippingServicePriority": " int ",
+          "ShipToLocation": " string "
+        },
+        "PaymentInstructions": " string ",
+        "PromotionalShippingDiscount": " boolean ",
+        "RateTableDetails": {
+          "#text": " RateTableDetailsType",
+          "DomesticRateTable": " string ",
+          "DomesticRateTableId": " string ",
+          "InternationalRateTable": " string ",
+          "InternationalRateTableId": " string "
+        },
+        "SalesTax": {
+          "#text": " SalesTaxType",
+          "SalesTaxPercent": " float ",
+          "SalesTaxState": " string ",
+          "ShippingIncludedInTax": " boolean "
+        },
+        "ShippingDiscountProfileID": " string ",
+        "ShippingServiceOptions": {
+          "#text": " ShippingServiceOptionsType",
+          "FreeShipping": " boolean ",
+          "ShippingService": " token ",
+          "ShippingServiceAdditionalCost": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "ShippingServiceCost": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "ShippingServicePriority": " int ",
+          "ShippingSurcharge": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          }
+        },
+        "ShippingType": " ShippingTypeCodeType "
+      },
+      "ShippingPackageDetails": {
+        "#text": " ShipPackageDetailsType",
+        "MeasurementUnit": " MeasurementSystemCodeType ",
+        "PackageDepth": {
+          "-unit": "token",
+          "-measurementSystem": "MeasurementSystemCodeType",
+          "#text": " MeasureType (decimal) "
+        },
+        "PackageLength": {
+          "-unit": "token",
+          "-measurementSystem": "MeasurementSystemCodeType",
+          "#text": " MeasureType (decimal) "
+        },
+        "PackageWidth": {
+          "-unit": "token",
+          "-measurementSystem": "MeasurementSystemCodeType",
+          "#text": " MeasureType (decimal) "
+        },
+        "ShippingIrregular": " boolean ",
+        "ShippingPackage": " ShippingPackageCodeType ",
+        "WeightMajor": {
+          "-unit": "token",
+          "-measurementSystem": "MeasurementSystemCodeType",
+          "#text": " MeasureType (decimal) "
+        },
+        "WeightMinor": {
+          "-unit": "token",
+          "-measurementSystem": "MeasurementSystemCodeType",
+          "#text": " MeasureType (decimal) "
+        }
+      },
+      "ShippingServiceCostOverrideList": {
+        "#text": " ShippingServiceCostOverrideListType",
+        "ShippingServiceCostOverride": {
+          "#text": " ShippingServiceCostOverrideType",
+          "ShippingServiceAdditionalCost": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "ShippingServiceCost": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          },
+          "ShippingServicePriority": " int ",
+          "ShippingServiceType": " ShippingServiceType ",
+          "ShippingSurcharge": {
+            "-currencyID": "CurrencyCodeType",
+            "#text": " AmountType (double) "
+          }
+        }
+      },
+      "ShippingTermsInDescription": " boolean ",
+      "ShipToLocations": " string ",
+      "Site": " SiteCodeType ",
+      "SKU": " SKUType (string) ",
+      "StartPrice": {
+        "-currencyID": "CurrencyCodeType",
+        "#text": " AmountType (double) "
+      },
+      "Storefront": {
+        "#text": " StorefrontType",
+        "StoreCategory2ID": " long ",
+        "StoreCategory2Name": " string ",
+        "StoreCategoryID": " long ",
+        "StoreCategoryName": " string "
+      },
+      "SubTitle": " string ",
+      "TaxCategory": " string ",
+      "Title": " string ",
+      "UseTaxTable": " boolean ",
+      "UUID": " UUIDType (string) ",
+      "VATDetails": {
+        "#text": " VATDetailsType",
+        "BusinessSeller": " boolean ",
+        "RestrictedToBusiness": " boolean ",
+        "VATPercent": " float "
+      },
+      "VIN": " string ",
+      "VRM": " string "
+    },
+    "ErrorHandling": " ErrorHandlingCodeType ",
+    "ErrorLanguage": " string ",
+    "MessageID": " string ",
+    "Version": " string ",
+    "WarningLevel": " WarningLevelCodeType "
+  }
+}
+
+
