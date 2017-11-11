@@ -84,6 +84,7 @@ var a = function (input) {
         url: 'https://api.deckbrew.com/mtg/cards/' + formatedInput
 
     }).success(function (data) {
+        console.log(data);
 
         var g = "url(" + data.editions[0].image_url + ")";
         var searchTable = $('#card_list');
