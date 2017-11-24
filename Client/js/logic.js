@@ -61,6 +61,30 @@ var makeEbayCall = function () {
     var form = makeEbayCallJson(title, description, startPrice, picURL, eBayAuthToken);
     console.log(form);
     socket.emit('ebayPostListing', form);
+    socket.on('xmlRequest', function (data) {
+        console.log(data);
+        $.ajax({
+            type: 'GET',
+            url: 'https://api.sandbox.ebay.com/ws/api.dll',
+            headers: {
+                'X-EBAY-API-COMPATIBILITY-LEVEL': '967',
+                'X-EBAY-API-DEV-NAME': 'a',
+                'X-EBAY-API-APP-NAME': 'P',
+                'X-EBAY-API-CERT-NAME': 'S',
+                'X-EBAY-API-CALL-NAME': 'AddItem',
+                'X-EBAY-API-SITEID': '0',
+                'Content-Type': 'test/xml'
+            },
+            data: data.xml
+            
+
+        }).success(function (data) {
+            console.log(data);
+
+
+
+        });
+    });
 };
 
 
@@ -100,6 +124,10 @@ var a = function (input) {
 
 var socket = io();
 
+
+
+
+
 //RETURN ALL FROM DB
 var test = function () {
 
@@ -118,7 +146,7 @@ socket.on('dbReturn', function (data) {
     cardlist.empty();
 
     $.each(data.cards, function (index, value) {
-        
+
         var tableRow = $('<tr>');
         var tableD = $('<td>').attr({class: 'indiv_card'});
         var textH4 = $('<h4>').attr({HTML: value.name_card + " x" + value.quantity});
@@ -274,9 +302,4 @@ var displayFunctions = function (linkValue) {
     $('#card_input1').val(linkValue);
     socket.emit('searchBarSelected', {searchTerm: linkValue});
 };
-
-
-
-
-
-
+//

@@ -10,6 +10,8 @@ var mysql = require('mysql');
 var parseString = require('xml2js').parseString;
 var fs = require('fs');
 var json2xml = require('json2xml');
+//var $ = require("jquery");
+
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/Client/index.html');
@@ -33,6 +35,7 @@ app.get('/', function (req, res) {
         parseString(xml, function (err, result) {
             console.log(result);
         });
+        
 
         con.query("SELECT * FROM `Website_Content_mesa`", function (err, result, fields) {
             if (err)
@@ -154,18 +157,20 @@ app.get('/', function (req, res) {
             });
 
 
-
         });
 
         socket.on('ebayPostListing', function (data) {
-            
+
             console.log(data);
             //parseString(data, function (err, result) {
-                //console.log(result);
+            //console.log(result);
             //});
-            var x =json2xml(data);
+            var x = json2xml(data);
             console.log(x);
 
+            socket.emit('xmlRequest',{xml:x});
+            
+           //apigee postman
 
         });
 
