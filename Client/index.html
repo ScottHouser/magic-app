@@ -9,15 +9,19 @@ and open the template in the editor.
         <title>Magic App</title>
 
         <link href="/Client/css/bootstrap.min.css" rel="stylesheet">
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="http://www.commanderinmtg.com/wp-content/uploads/2015/12/White-Mana-Symbol.png" type="image/x-icon" />
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <style>
             @import url('https://fonts.googleapis.com/css?family=Oswald');
             body{
 
                 font-family:Oswald; 
-                background: url('../Client/img2/Izzet_Wallpaper_1920x1080.jpg');
+                background: url('https://i.imgur.com/yk8rgjR.jpg');
+                /*                background: url('../Client/img2/Izzet_Wallpaper_1920x1080.jpg');*/
                 background-repeat: no-repeat;
                 background-position: center center;
                 background-attachment: fixed;
@@ -27,11 +31,15 @@ and open the template in the editor.
                 background-size: cover;
 
             }
+            html,body
+            {margin:0;padding:0}
+
             #header{
                 padding:0px;
                 margin-left:0px;
                 margin-right:0px;
-                background: rgba(255, 255, 255, 0.8);
+                margin-bottom:0px;
+                /*                background: rgba(255, 255, 255, 0.8);*/
 
 
 
@@ -47,14 +55,14 @@ and open the template in the editor.
             }
             #nav_bar{
                 padding-top:0px;
-                background: rgba(255, 255, 255, 0.8);
+                /*                background: rgba(255, 255, 255, 0.8);*/
 
             }
             #main_pic, #main_pic2{
                 border-radius: 25px;
-                border: 2px solid #637593;
+                border: 1px solid #6ad5e8;
 
-                background: rgba(255, 255, 255, 0.8);
+                background: rgba(48, 48, 48, 0.8);
                 margin-top:0px;
                 margin-left:0px;
                 margin-right:0px;
@@ -66,29 +74,32 @@ and open the template in the editor.
             }
             #search_table_div{
                 border-radius: 25px;
-                border: 2px solid #637593;
+                border: 1px solid #6ad5e8;
                 padding: 20px; 
-                background: rgba(255, 255, 255, 0.8);
+                background: rgba(48, 48, 48, 0.8);
 
                 margin-left:0px;
                 margin-right:0px;
                 height:430px;
+                padding-top:12px; 
 
             }
 
             #cap_top, #cap_top2{
-                background: rgba(255, 255, 255, 0.3);
+                background: rgba(48, 48,48, 0.3);
                 margin:20px;
                 border-radius: 25px;
+                width:65%;
+
             }
             #footer{
                 margin-top:60px;
                 background-color:white;
-                border: 2px solid #637593;
+                border: 2px solid #6ad5e8;
             }
             #right{
                 border-radius: 25px;
-                border: 2px solid #637593;
+                border: 1px solid #6ad5e8;
                 padding: 20px; 
                 background-color:white;
                 margin-top:20px;
@@ -105,7 +116,7 @@ and open the template in the editor.
                 border: 1px solid white;
             }
             #card_search{
-                margin-top:28px;
+                margin-top:3px;
                 width: 300px;
             }
 
@@ -113,8 +124,8 @@ and open the template in the editor.
                 margin-top: 15px;  
             }
             .indiv_card{
-                border-radius: 25px;
-                border: 2px solid #637593;
+                padding-left:20px;
+
             }
             .ci{
                 width:200px;
@@ -123,8 +134,35 @@ and open the template in the editor.
                 z-index: 1020;
             }
             #app_title{
-                color:#bc071c;
+                color:#6ad5e8;
             }
+            #header{
+                margin:0px;
+            }
+            #sale_link,#search_link{
+                color:#6ad5e8;
+                margin-top:0px;
+            }
+            .search_table_link{
+                color:#6ad5e8;
+            }
+            .form-check-input{
+                margin-top:5px;
+            }
+            
+            
+
+            @media screen and (max-width: 880px) {
+                #search_table_div {
+                    width:200px;
+                    
+                }
+                #main_pic {
+                    width:450px;
+                    
+                }
+            }
+            
 
         </style>
     </head>
@@ -133,10 +171,10 @@ and open the template in the editor.
 
 
         <div >
-            <div id="header" class="container-fluid">
-                <div class="page-header">
+            <div style='margin:0px;' id="header" class="container-fluid">
+                <div style='padding-left:30px;' class='col-md-12 ' >
 
-                    <center><h2 id="app_title">MAGIC APP</h2>  </center>  
+                    <h1 id="app_title">MTG EBAY Power Lister</h1>  
 
                 </div>
 
@@ -145,64 +183,80 @@ and open the template in the editor.
                 <ul  class="nav nav-pills nav-fill">
 
                     <li class="nav-item">
-                        <a class="nav-link" onclick="test()" href="#"><h3>populate table</h3></a>
-                    </li>
+                        <!--    eventually this will load inventory <a class="nav-link" onclick="test()" href="#"><h3>populate table</h3></a>-->
 
+                    </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#" ><h3>Search:</h3></a>
-                    </li>
-                    <li class="nav-item">
-                        <input type="text" class="form-control" id="card_search">
+                        <a id="sale_link" class="nav-link" href="#" data-toggle='modal' onclick='clearModal()' data-target='#myModal'><h4 style='margin-top:0px;'> Sale Form</h4> </a>
+
                     </li>
 
-                  
+
+                    
+                    <li class="nav-item">
+<!--                        <div class="col-sm-12" style="width:400px">
+                            <div style='margin:0px; padding:0px;' class="col-sm-2">
+                        <a style="padding-top: 10px" id="search_link" class="nav-link" href="#" ><h4>Search:</h4></a>
+                            </div>-->
+                            <div style='margin:0px; padding:0px;' class="col-sm-12">
+                                <input type="text" class="form-control" placeholder="SEARCH" id="card_search">
+                            </div>
+<!--                        </div>-->
+                    </li>
+                    
+                    
+
+
                 </ul>
+
             </div>
-            <div id='search_table_div' class="col-md-2">
-                <div style="background: rgba(255, 255, 255, 0.3);border-radius: 25px;">
-                    <center><h4 style="color:#bc071c;" style ='margin-top:0px;'>Search Results</h4></center>    
-                    <table id="search_display">
-                        <tr></tr>
-                    </table>
-                </div>
-            </div>
-            <div style="margin:0px;padding:0px;" class="row">
-                <div id="main_pic" class="col-md-7">
-                    <div id="cap_top">
-                        <center><h2 style="color:#bc071c;" style ='margin-top:0px;'>Card Table</h2></center>
-                        <table id="card_list">
+            <div class="col-sm-12" style="padding:0px">
+                <div id='search_table_div' class="col-sm-2">
+                    <div style="background: rgba(48, 48, 48, 0.3);border-radius: 25px;">
+                        <center><h4 style="color:#6ad5e8;" style ='margin-top:0px;'>Search Results</h4></center>    
+                        <table id="search_display">
                             <tr></tr>
                         </table>
+                    </div>
+                </div>
+                <div style="margin:0px;padding:0px;" class="row">
+                    <div id="main_pic" class="col-sm-7">
+                        <div id="cap_top">
+                            <center><h2 style="color:#6ad5e8;" style ='margin-top:0px;'>Card Table</h2></center>
+                            <table id="card_list">
+                                <tr></tr>
+                            </table>
 
+
+                        </div>
 
                     </div>
+                    <div id="main_pic2" class="col-sm-3">
+                        <div id="cap_top2">
+                            <center><h2 style="color:#6ad5e8;" style ='margin-top:0px;'>Log Cards</h2></center>
+                            <center><h4 style="color:#6ad5e8;margin-top:0px;" id="log_message"></h4></center>
+                            <input style="width:170px;" type="text" placeholder="Name" class="form-control ci" id="card_input1">
+                            <input style="width:170px;" type="text" placeholder="Quantity" class="form-control ci" id="card_input2">
+                            <input style="width:170px;" type="text" placeholder="Set" class="form-control ci" id="card_input3">
+                            <input style="width:170px;" type="text" placeholder="Purchace" class="form-control ci" id="card_input4">
+                            <input style="width:170px;" type="text" placeholder="Current" class="form-control ci" id="card_input5">
 
-                </div>
-                <div id="main_pic2" class="col-md-3">
-                    <div id="cap_top2">
-                        <center><h2 style="color:#bc071c;" style ='margin-top:0px;'>Log Cards</h2></center>
-                        <center><h4 style="color:#bc071c;margin-top:0px;" id="log_message"></h4></center>
-                        <input style="width:170px;" type="text" placeholder="Name" class="form-control ci" id="card_input1">
-                        <input style="width:170px;" type="text" placeholder="Quantity" class="form-control ci" id="card_input2">
-                        <input style="width:170px;" type="text" placeholder="Set" class="form-control ci" id="card_input3">
-                        <input style="width:170px;" type="text" placeholder="Purchace" class="form-control ci" id="card_input4">
-                        <input style="width:170px;" type="text" placeholder="Current" class="form-control ci" id="card_input5">
+                            <center><button type="button" class="btn btn-primary" onclick="submitToDB()">Log To Database</button></center>
+                            <center><button type="button" class="btn btn-primary" onclick="allCards()">!!!</button></center>
 
-                        <center><button type="button" class="btn btn-primary" onclick="submitToDB()">Log To Database</button></center>
-                        <center><button type="button" class="btn btn-primary" onclick="allCards()">!!!</button></center>
+                        </div>
 
                     </div>
+                    <div style='height:100px;width:100px;' id='test_div'>
 
-                </div>
-                <div style='height:100px;width:100px;' id='test_div'>
-
+                    </div>
                 </div>
             </div>
 
         </div> 
 
-       
+
 
         <!-- Modal -->
 
@@ -213,19 +267,44 @@ and open the template in the editor.
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">close</button>
                         <h4 class="modal-title">Sale Form</h4>
                     </div>
                     <div class="modal-body">
                         <input id="modal_title" type="text" placeholder="Title" class="form-control ">
-                        <input id="modal_description" type="text" placeholder="Description" class="form-control " >
+                        <input id='modal_quantity' type="text" placeholder="quant" class="form-control " >
                         <input id="modal_starting_price" type="text" placeholder="Starting Price" class="form-control " >
-                        <input type="text" placeholder="x" class="form-control " >
-                        <input type="text" placeholder="x" class="form-control " >
+                        <input id='modal_pic_url' type="text" placeholder="pic url" class="form-control " >
+                        <form id="set_radio_form">
+                            <div id='set_radio_div'>
+                                <div class="radio">
+                                    <label><input type="radio" name="optradio">custom(blank)</label>
+                                </div>
+
+                            </div>
+                        </form>    
+                        <div style='margin-top:10px' class="form-check">
+                            <label class="form-check-label">
+                                <input id='foil_check' type="checkbox" class="form-check-input">
+                                Foil
+                            </label>
+                            <label class="form-check-label">
+                                <input id='new_check' type="checkbox" class="form-check-input">
+                                New (leave unchecked for used)
+                            </label>
+                        </div>
+                        <input id="modal_description" type="text" placeholder="Description" class="form-control " >
                     </div>
                     <div class="modal-footer">
+                        <div style='float:left;'>
+                        <button type="button" onclick='discriptionGenerator()' class="btn btn-default">Generate Discription</button>
+                        </div>
+                        <div style='float:right'>
                         <button type="button" onclick="makeEbayCall()" class="btn btn-default">Post</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                       
+                       
+                        </div>
+                       
                     </div>
                 </div>
 

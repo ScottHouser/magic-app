@@ -61,10 +61,10 @@ app.get('/', function (req, res) {
         //SEARCHBAR
         socket.on('searchBar', function (data) {
 
-            con.query("SELECT * FROM `card_name_db` WHERE name LIKE" + "'%" + data.searchTerm + "%' LIMIT 10", function (err, result, fields) {
+            con.query("SELECT * FROM `card_name_db` WHERE name LIKE" + "'%" + data.searchTerm + "%' LIMIT 8", function (err, result, fields) {
                 if (err)
                     throw err;
-                console.log(result);
+                
 
                 socket.emit('searchBarReturn', {cards: result});
             });
@@ -72,11 +72,12 @@ app.get('/', function (req, res) {
         //SEARCHRESULTBARCLICKED
         socket.on('searchBarSelected', function (data) {
 
-            con.query("SELECT * FROM `card_DB` WHERE name_card LIKE" + "'%" + data.searchTerm + "%' LIMIT 10", function (err, result, fields) {
+            con.query("SELECT * FROM `card_DB` WHERE name_card LIKE" + "'%" + data.searchTerm + "%' LIMIT 8", function (err, result, fields) {
                 if (err)
                     throw err;
+                
 
-                socket.emit('searchBarReturnClick', {cards: result});
+                socket.emit('searchBarReturnClick', {cards: result, searchTermReturn:data.searchTerm});
             });
         });
 

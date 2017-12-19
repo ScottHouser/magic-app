@@ -22,7 +22,7 @@ var makeEbayCall = function () {
                 "Item": {
                     "Title": title,
                     "Description": description,
-                    "PrimaryCategory": {"CategoryID": "GET TRADING CARD CATAGORY"},
+                    "PrimaryCategory": {"CategoryID": 38292},
                     "StartPrice": startPrice,
                     "CategoryMappingAllowed": "true",
                     "ConditionID": "4000",
@@ -59,27 +59,27 @@ var makeEbayCall = function () {
 
     };
     var form = makeEbayCallJson(title, description, startPrice, picURL, eBayAuthToken);
-    console.log(form);
+    
     socket.emit('ebayPostListing', form);
     socket.on('xmlRequest', function (data) {
-        console.log(data);
+       
         $.ajax({
             type: 'GET',
             url: 'https://api.sandbox.ebay.com/ws/api.dll',
             headers: {
                 'X-EBAY-API-COMPATIBILITY-LEVEL': '967',
-                'X-EBAY-API-DEV-NAME': 'a',
-                'X-EBAY-API-APP-NAME': 'P',
-                'X-EBAY-API-CERT-NAME': 'S',
+                'X-EBAY-API-DEV-NAME': 'a9831f1f-637d-49ab-9ab4-a3320a125cee',
+                'X-EBAY-API-APP-NAME': 'PaulHous-MagicApp-SBX-9132041a0-c5c84eb0',
+                'X-EBAY-API-CERT-NAME': 'SBX-132041a0f4e3-ad33-48ed-88b4-ce0a',
                 'X-EBAY-API-CALL-NAME': 'AddItem',
                 'X-EBAY-API-SITEID': '0',
                 'Content-Type': 'test/xml'
             },
             data: data.xml
-            
+
 
         }).success(function (data) {
-            console.log(data);
+            
 
 
 
@@ -89,32 +89,22 @@ var makeEbayCall = function () {
 
 
 var a = function (input) {
+    var formatedInput=formatLowerCaseNoSpaces(input);
 
-    var formatedInput = '';
-    for (var i = 0; i < input.length + 1; i++) {
-
-        if (input.substring(i, i + 1) !== ' ') {
-            formatedInput = formatedInput + input.substring(i, i + 1);
-
-        } else {
-            formatedInput = formatedInput + '-';
-
-        }
-
-    }
+    
 
     $.ajax({
         type: 'GET',
         url: 'https://api.deckbrew.com/mtg/cards/' + formatedInput
 
     }).success(function (data) {
-        console.log(data);
+        
 
         var g = "url(" + data.editions[0].image_url + ")";
         var searchTable = $('#card_list');
         var searchTable2 = $('#main_pic');
 
-        searchTable2.css({"background-image": g, "background-position": 'right', 'background-repeat': 'no-repeat'});
+        searchTable2.css({"background-image": g, "background-position": 'top right', 'background-repeat': 'no-repeat'});
 
     });
 
@@ -123,9 +113,6 @@ var a = function (input) {
 
 
 var socket = io();
-
-
-
 
 
 //RETURN ALL FROM DB
@@ -189,7 +176,7 @@ socket.on('searchBarReturn', function (data) {
         var tableRow2 = $('<tr>');
         var tableD2 = $('<td>').attr({class: 'indiv_card'});
         var h6text = $('<h6>');
-        var linkToDisplay = $('<a>').click(function () {
+        var linkToDisplay = $('<a class="search_table_link">').click(function () {
             displayFunctions(value.name.toLowerCase());
         });
         linkToDisplay.append(value.name.toLowerCase());
@@ -210,7 +197,10 @@ var sendSearchLink = function (searchTermLink) {
 socket.on('searchBarReturnClick', function (data) {
 
     var fillModal = function (title) {
+
+        clearModal();
         $('#modal_title').val(title);
+        $('#modal_quantity').val(1);
 
     };
 
@@ -220,6 +210,7 @@ socket.on('searchBarReturnClick', function (data) {
     displayDiv.height(430);
 
     $.each(data.cards, function (index, value) {
+        
 
         var tableRow = $('<tr>');
         var tableD = $('<td>').attr({class: 'indiv_card'});
@@ -239,6 +230,40 @@ socket.on('searchBarReturnClick', function (data) {
 
 
     });
+    if (data.cards.length == 0) {
+       
+        var createListingLink = $('<a>').attr({"data-toggle": 'modal', "data-target": '#myModal', href: 'url', class:"search_table_link" ,onclick: fillModal(data.searchTermReturn)});
+        createListingLink.append('<h4> Create Listing </h4>');
+
+        var tableRow = $('<tr>');
+        var tableD = $('<td>').attr({class: 'indiv_card'});
+        cardlist.append(tableRow.append(tableD.append(createListingLink)));
+        
+
+        var formatedInput=formatLowerCaseNoSpaces(data.searchTermReturn);
+        
+
+        $.ajax({
+            async: false,
+            type: 'GET',
+            url: 'https://api.deckbrew.com/mtg/cards/' + formatedInput
+
+        }).success(function (data) {
+
+           
+
+
+            $.each(data.editions, function (index, value) {
+                var newRadioDiv = $('<div>');
+                var newRadioLable = $('<lable>');
+                newRadioLable.append(data.editions[index].set + " " + data.editions[index].set_id);
+                var newRadioRadioButton = $('<input>').attr({type: 'radio', dataSetName: data.editions[index].set, dataSetAbr: data.editions[index].set_id, name: "optradio"});
+
+                $('#set_radio_div').append(newRadioDiv.append(newRadioRadioButton, newRadioLable));
+            });
+
+        });
+    }
 
 });
 //END
@@ -303,3 +328,73 @@ var displayFunctions = function (linkValue) {
     socket.emit('searchBarSelected', {searchTerm: linkValue});
 };
 //
+
+var discriptionGenerator = function () {
+
+    var cardName = $('#modal_title').val();
+    var quantity = $('#modal_quantity').val();
+    var setName = '';
+    var setAbr = '';
+    var sets = [];
+    var foil = '';
+    var condition = 'NEW';
+
+    
+    var checkedSet = ($("#set_radio_form input[type='radio']:checked"));
+    
+    setName = checkedSet[0].getAttribute('datasetname');
+    setAbr = checkedSet[0].getAttribute('datasetabr');
+
+
+
+    if (document.getElementById("foil_check").checked) {
+        foil = 'FOIL';
+    }
+
+    if (document.getElementById("foil_check").checked) {
+        condition = 'NM';
+    } else {
+        condition = 'NEW';
+    }
+
+    var outputString = cardName + " " + quantity + "x " + foil + " MTG " + setName + " " + setAbr + " " + condition;
+
+    $("#modal_description").val(outputString);
+   
+
+};
+
+var clearModal = function () {
+    $('#modal_title').val('');
+    $('#modal_quantity').val('');
+    $('#modal_starting_price').val('');
+    $('#modal_description').val('');
+    $('#modal_pic_url').val('');
+    document.getElementById("foil_check").checked = false;
+    document.getElementById("new_check").checked = false;
+    $('#set_radio_div').empty();
+
+    var newRadioDiv = $('<div style="margin-top:10px;">');
+    var newRadioLable = $('<lable>');
+    newRadioLable.append('Custom Text');
+    var newRadioRadioButton = $('<input>').attr({type: 'radio', dataSetName: '', dataSetAbr: '', name: "optradio"});
+
+    $('#set_radio_div').append(newRadioDiv.append(newRadioRadioButton, newRadioLable));
+};
+
+var formatLowerCaseNoSpaces = function(word){
+    var formatedInput = '';
+        for (var i = 0; i < word.length + 1; i++) {
+
+            if (word.substring(i, i + 1) !== ' ') {
+                formatedInput = formatedInput + word.substring(i, i + 1).toLowerCase();
+
+            } else {
+                formatedInput = formatedInput + '-';
+
+            }
+
+        }
+        
+    return formatedInput;    
+};
