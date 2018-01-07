@@ -8,97 +8,107 @@
 var makeEbayCall = function () {
     var title = $('#modal_title').val();
     var description = $('#modal_description').val();
-    var startPrice = $('#modal_description').val();
-    var picURL = '';
+    var startPrice = $('#modal_starting_price').val();
+    var picURL = $('#modal_pic_url').val();
     var eBayAuthToken = '';
+    var conditionId = document.getElementById("new_check").checked ? 1000 : 3000;
+    var categoryId = document.getElementById("foil_check").checked ? 49181 : 38292;
 
-    var makeEbayCallJson = function (title, description, startPrice, picURL, eBayAuthToken) {
-        var ebayJson = {
-            "AddItemRequest": {
-                "-xmlns": "urn:ebay:apis:eBLBaseComponents",
-                "RequesterCredentials": {"eBayAuthToken": eBayAuthToken},
-                "ErrorLanguage": "en_US",
-                "WarningLevel": "High",
-                "Item": {
-                    "Title": title,
-                    "Description": description,
-                    "PrimaryCategory": {"CategoryID": 38292},
-                    "StartPrice": startPrice,
-                    "CategoryMappingAllowed": "true",
-                    "ConditionID": "4000",
-                    "Country": "US",
-                    "Currency": "USD",
-                    "DispatchTimeMax": "3",
-                    "ListingDuration": "Days_7",
-                    "ListingType": "FixedPriceItem",
-                    "PaymentMethods": "PayPal",
-                    "PayPalEmailAddress": "magicalbookseller@yahoo.com",
-                    "PictureDetails": {"PictureURL": picURL},
-                    "PostalCode": "73034",
-                    "Quantity": "1",
-                    "ReturnPolicy": {
-                        "ReturnsAcceptedOption": "ReturnsAccepted",
-                        "RefundOption": "MoneyBack",
-                        "ReturnsWithinOption": "Days_30",
-                        "Description": "If you are not satisfied, return for refund.",
-                        "ShippingCostPaidByOption": "Buyer"
-                    },
-                    "ShippingDetails": {
-                        "ShippingType": "Flat",
-                        "ShippingServiceOptions": {
-                            "ShippingServicePriority": "1",
-                            "ShippingService": "USPSMedia",
-                            "ShippingServiceCost": "FLAT RATE OF SHIPPING"
-                        }
-                    },
-                    "Site": "US"
-                }
-            }
-        };
+
+    var makeEbayCallJson = function (title, description, startPrice, picURL, conditionId, CategoryId) {
+        var ebayJson = '<?xml version="1.0" encoding="utf-8"?>' +
+                '<AddItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
+                '<RequesterCredentials>' +
+                '<eBayAuthToken>x</eBayAuthToken>' +
+                '</RequesterCredentials>' +
+                '<ErrorLanguage>en_US</ErrorLanguage>' +
+                '<WarningLevel>High</WarningLevel>' +
+                '<Item>' +
+                '<CategoryMappingAllowed>true</CategoryMappingAllowed>' +
+                '<ConditionID>' + conditionId + '</ConditionID>' +
+                '<Country>US</Country>' +
+                '<Currency>USD</Currency>' +
+                '<Description>' + description + '</Description>' +
+                '<DispatchTimeMax>2</DispatchTimeMax>' +
+                '<ListingDuration>Days_30</ListingDuration>' +
+                '<ListingType>FixedPriceItem</ListingType>' +
+                '<PaymentMethods>PayPal</PaymentMethods>' +
+                '<PayPalEmailAddress>bulseye1111@gmail.com</PayPalEmailAddress>' +
+                '<PictureDetails>' +
+                '<PictureURL>' + picURL + '</PictureURL>' +
+                '</PictureDetails>' +
+                '<PostalCode>73013</PostalCode>' +
+                '<PrimaryCategory>' +
+                '<CategoryID>' + categoryId + '</CategoryID>' +
+                '</PrimaryCategory>' +
+                '<Quantity>1</Quantity>' +
+                '<ReturnPolicy>' +
+                '<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>' +
+                '<RefundOption>MoneyBack</RefundOption>' +
+                '<ReturnsWithinOption>Days_30</ReturnsWithinOption>' +
+                '<Description>If the card or cards are damaged or counterfeited, please message me or open a return through ebay and I will refund you as soon as possible.</Description>' +
+                '<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>' +
+                '</ReturnPolicy>' +
+                '<ShippingDetails>' +
+                '<ShippingType>Flat</ShippingType>' +
+                '<ShippingServiceOptions>' +
+                '<FreeShipping>1</FreeShipping>' +
+                '<ShippingService>ShippingMethodStandard</ShippingService>' +
+                '</ShippingServiceOptions>' +
+                '</ShippingDetails>' +
+                '<Site>US</Site>' +
+                '<StartPrice>' + startPrice + '</StartPrice>' +
+                '<Title>' + title + '</Title>' +
+                '</Item>' +
+                '<Version>1019</Version>' +
+                '</AddItemRequest>'
+
+
         return ebayJson;
 
     };
-    var form = makeEbayCallJson(title, description, startPrice, picURL, eBayAuthToken);
-    
+
+
+    var form = makeEbayCallJson(title, description, startPrice, picURL, conditionId, categoryId);
+    console.log(form);
     socket.emit('ebayPostListing', form);
     socket.on('xmlRequest', function (data) {
-       
+        console.log(data);
         $.ajax({
-            type: 'GET',
-            url: 'https://api.sandbox.ebay.com/ws/api.dll',
+            type: 'POST',
+            url: 'https://api.ebay.com/ws/api.dll',
             headers: {
-                'X-EBAY-API-COMPATIBILITY-LEVEL': '967',
-                'X-EBAY-API-DEV-NAME': 'a9831f1f-637d-49ab-9ab4-a3320a125cee',
-                'X-EBAY-API-APP-NAME': 'PaulHous-MagicApp-SBX-9132041a0-c5c84eb0',
-                'X-EBAY-API-CERT-NAME': 'SBX-132041a0f4e3-ad33-48ed-88b4-ce0a',
+                'X-EBAY-API-COMPATIBILITY-LEVEL': '1019',
                 'X-EBAY-API-CALL-NAME': 'AddItem',
                 'X-EBAY-API-SITEID': '0',
-                'Content-Type': 'test/xml'
+                'X-EBAY-API-DETAIL-LEVEL': 0,
+                'X-EBAY-API-IAF-TOKEN': 'AgAAAA**AQAAAA**aAAAAA**HKoxWg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AFmYqoC5mAow+dj6x9nY+seQ**4f4DAA**AAMAAA**aloOJiTqs+eJfiI0TmWCHXLFsfPkd0eRThFQ+f+Fjj+6oLDl6m3B/3IlwjX0+/1nHJu4HnwVwWS3pmlusXMY4Dwq4VoBGAzFar42TFSCMZcR/TrD3h8fzMOL2EQCDyqGHnhzoHQoMptrY4h2mDhokOxG49k6VbtHCu6VVElyYIBrmxamcCQsA4YSNbLX65rTm1KSEs73euaDsnN6rBGnsk3mLU71VZ+gCuaOsGsP4mloK8VYiDhoq0ealgeBZyVgUjFXma924oAdx+yNtEp0KtaJAy18NDZ8jqLLucGNKtUGLzcw+Ibu3e5qFKeoawH0ab0Qw7JzKSRlHR4PNHQwIdmzVY3EN9ffMPlcjAmBvY31qPGYR4Ssj5IcfplIRqjUdhaamSJCebSCT/AUMOOj6dTlVh1nHrlMiqL/hzUu3apCafJ9oJme0yX9o00wtGgvIUO8kJeHPbi9TQOsQS0bsNV0ZWbPPBTVGMgAtepdAtRtQfdjLRBTCzKFFFa1jDNC1i6F8Vec3/ne5muNzhNPC2QWP580TRAIsDoExeIIpwcJFeWXEIafBzAsJjpObST47yqk7Xy5dlAHnS90zwOB+2QZpRKPl05CSkO/+JXkgz5Jsnlc3gNaxZvYFB3rynClBtInp9G+H8tXeQWjH5v5IE/U8d0eUdN9lhjDg4795teB+8PNc0jvIIyJ8xpAV8Q8jjcNf2IByQX3iNQj5/XdeHgxdDdsb0zmfNmQAPwlXkp0J8ze92/GB6BBp1iTMoBx'
             },
             data: data.xml
 
 
         }).success(function (data) {
-            
+            console.log('success', data);
 
 
-
+        }).fail(function (error) {
+            console.log('error', error);
         });
     });
 };
 
 
 var a = function (input) {
-    var formatedInput=formatLowerCaseNoSpaces(input);
+    var formatedInput = formatLowerCaseNoSpaces(input);
 
-    
+
 
     $.ajax({
         type: 'GET',
         url: 'https://api.deckbrew.com/mtg/cards/' + formatedInput
 
     }).success(function (data) {
-        
+
 
         var g = "url(" + data.editions[0].image_url + ")";
         var searchTable = $('#card_list');
@@ -210,7 +220,7 @@ socket.on('searchBarReturnClick', function (data) {
     displayDiv.height(430);
 
     $.each(data.cards, function (index, value) {
-        
+
 
         var tableRow = $('<tr>');
         var tableD = $('<td>').attr({class: 'indiv_card'});
@@ -231,17 +241,17 @@ socket.on('searchBarReturnClick', function (data) {
 
     });
     if (data.cards.length == 0) {
-       
-        var createListingLink = $('<a>').attr({"data-toggle": 'modal', "data-target": '#myModal', href: 'url', class:"search_table_link" ,onclick: fillModal(data.searchTermReturn)});
+
+        var createListingLink = $('<a>').attr({"data-toggle": 'modal', "data-target": '#myModal', href: 'url', class: "search_table_link", onclick: fillModal(data.searchTermReturn)});
         createListingLink.append('<h4> Create Listing </h4>');
 
         var tableRow = $('<tr>');
         var tableD = $('<td>').attr({class: 'indiv_card'});
         cardlist.append(tableRow.append(tableD.append(createListingLink)));
-        
 
-        var formatedInput=formatLowerCaseNoSpaces(data.searchTermReturn);
-        
+
+        var formatedInput = formatLowerCaseNoSpaces(data.searchTermReturn);
+
 
         $.ajax({
             async: false,
@@ -250,7 +260,7 @@ socket.on('searchBarReturnClick', function (data) {
 
         }).success(function (data) {
 
-           
+
 
 
             $.each(data.editions, function (index, value) {
@@ -329,38 +339,49 @@ var displayFunctions = function (linkValue) {
 };
 //
 
-var discriptionGenerator = function () {
+var titleGenerator = function () {
 
     var cardName = $('#modal_title').val();
-    var quantity = $('#modal_quantity').val();
+    var quantity = $('#modal_quantity').val() == 1 ? '' : 'x' + $('#modal_quantity').val();
     var setName = '';
     var setAbr = '';
     var sets = [];
-    var foil = '';
-    var condition = 'NEW';
+    var foil = document.getElementById("foil_check").checked ? 'FOIL' : '';
+    var condition = document.getElementById("new_check").checked ? "NM" : '';
 
-    
     var checkedSet = ($("#set_radio_form input[type='radio']:checked"));
-    
+
     setName = checkedSet[0].getAttribute('datasetname');
     setAbr = checkedSet[0].getAttribute('datasetabr');
 
+    //if (quantity == 1) { quantity = ""}
+
+    var outputString = cardName + " " + quantity + foil + " MTG " + setName + " " + setAbr + " " + condition;
+
+    $("#modal_title").val(outputString);
 
 
-    if (document.getElementById("foil_check").checked) {
-        foil = 'FOIL';
-    }
+};
 
-    if (document.getElementById("foil_check").checked) {
-        condition = 'NM';
-    } else {
-        condition = 'NEW';
-    }
+var discriptionGenerator = function () {
 
-    var outputString = cardName + " " + quantity + "x " + foil + " MTG " + setName + " " + setAbr + " " + condition;
+    var cardName = $('#modal_title').val();
+    var quantity = $('#modal_quantity').val() == 1 ? '' : 'x' + $('#modal_quantity').val();
+    var setName = '';
+    var setAbr = '';
+    var sets = [];
+    var foil = document.getElementById("foil_check").checked ? 'FOIL' : '';
+    var condition = document.getElementById("new_check").checked ? "NM" : '';
+
+    var checkedSet = ($("#set_radio_form input[type='radio']:checked"));
+
+    setName = checkedSet[0].getAttribute('datasetname');
+    setAbr = checkedSet[0].getAttribute('datasetabr');
+
+    var outputString = cardName + " " + quantity + foil + " MTG Magic the Gathering\n" + setName + " " + setAbr + " \n " + condition + " Free shipping!";
 
     $("#modal_description").val(outputString);
-   
+
 
 };
 
@@ -382,19 +403,29 @@ var clearModal = function () {
     $('#set_radio_div').append(newRadioDiv.append(newRadioRadioButton, newRadioLable));
 };
 
-var formatLowerCaseNoSpaces = function(word){
+var formatLowerCaseNoSpaces = function (word) {
     var formatedInput = '';
-        for (var i = 0; i < word.length + 1; i++) {
 
-            if (word.substring(i, i + 1) !== ' ') {
-                formatedInput = formatedInput + word.substring(i, i + 1).toLowerCase();
+    var w = word.split(',').join('');
 
-            } else {
-                formatedInput = formatedInput + '-';
+    var formatedInput = w.split(' ').join('-').toLowerCase();
 
-            }
 
-        }
+    return formatedInput;
+};
+
+var testGoogleFunction = function () {
+    var googURL= $('#modal_pic_url').val();
+    $.ajax({
+        type: 'POST',
+        url: 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyCVHqmoP280py605KPBGz2PGbeRpf8Tmjs',
+        contentType: 'application/json',   
+        data: '{"longUrl":"'+googURL+'"}'
+
+    }).success(function (data) {
+       
+       $('#modal_pic_url').val(data.id);
         
-    return formatedInput;    
+    });
+
 };
